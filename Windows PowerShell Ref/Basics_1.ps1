@@ -2,23 +2,26 @@
 Clear-Host
 function prompt {"PS >"}  #PromptChanged
 
-Pushd .
+# Pushd => Push-Location
+Push-Location .
 
+# Cd => Set-Location
 d:
-cd .\Development\PowerShellScripts
-Dir *.* -Recurse
+Set-Location .\Development\PowerShellScripts
+# Dir => Get-ChildItem
+Get-ChildItem *.* -Recurse
 
-popd
-pwd
+# popd => Pop-Location
+Pop-Location
+
+# pwd => Get-Location
+Get-Location
 
 ipconfig
 
-
+# gps => Get-Process
 Get-Process -n lsass
-<#
-    Get-Process has a shortcut - gps
-#>
-gps A*
+Get-Process A*
 
 # .Length
 "Hello boots".Length
@@ -49,9 +52,9 @@ Get-Process | Where-Object {$_.Handles -ge 500} | Sort-Object Handles | Format-T
 #Standard Methods - Get Set Start Stop Kill
 
 D:
-CD D:\Downloads
+Set-Location D:\Downloads
 Get-Item *.* | Copy-Item -Destination D:\Temp\ -Confirm -WhatIf
-Dir D:\Temp\*.* -Recurse
+Get-ChildItem D:\Temp\*.* -Recurse
 
 #Common Discovery Commands
 Get-Command -CommandType Alias
@@ -85,11 +88,11 @@ notepad D:\Temp\AdHocDev20200818.ps1
 
 #Bridging Technologies
 #XML
-$Xcon = [XML] "<note><to>Tove</to><from>Jani</from><heading>Reminder</heading><body>Don't forget me this weekend!</body></note>"
+$Xcon = [XML] "<note><to>Love</to><from>Jani</from><heading>Reminder</heading><body>Don't forget me this weekend!</body></note>"
 $XCon.InnerXml
 $XCon.FirstChild
 $XCon.FirstChild.Item("body")
-$XCon.FirstChild | Select body
+$XCon.FirstChild | Select-Object body
 
 #WMI
 Get-WmiObject -List
@@ -106,3 +109,38 @@ $OS.BootDevice
 #Com Objects
 $fWall = New-Object -ComObject HNetCfg.FwMgr
 $fWall.LocalPolicy.CurrentProfile
+
+#Namespace Navigation Through Providers
+
+Set-Location D:\
+Get-ChildItem
+
+#Setting location within the registry 
+Set-Location HKCU:\Software\Microsoft\Windows\
+Get-Location
+Get-ChildItem
+
+Set-Location CurrentVersion\Run
+Get-ItemProperty .
+
+# Navigating to the certificate store
+Set-Location Cert:\
+Get-ChildItem
+Set-Location Cert:\CurrentUser\
+Get-ChildItem
+Set-Location Cert:\LocalMachine
+Get-ChildItem
+
+Set-Location Cert:\CurrentUser\Root
+Get-ChildItem
+
+Get-ChildItem Env:
+
+Set-Location Env:
+
+Get-ChildItem Env:\COMPUTERNAME
+
+$WinDir = Get-Content Env:windir
+$WinDir
+
+Set-Location $WinDir
