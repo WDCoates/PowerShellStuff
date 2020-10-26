@@ -1,5 +1,10 @@
 ﻿# Basics
 Clear-Host
+
+#What Versions 
+Get-Host | Select-Object
+$PSVersionTable
+
 function prompt {"PS >"}  #PromptChanged
 
 # Pushd => Push-Location
@@ -144,3 +149,7 @@ $WinDir = Get-Content Env:windir
 $WinDir
 
 Set-Location $WinDir
+
+#Note PowerShell rounds 
+(3/2)       #=> 1.5
+[int](3/2)  #=> 2
