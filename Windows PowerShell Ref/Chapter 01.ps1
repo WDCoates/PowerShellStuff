@@ -325,5 +325,18 @@ $firstXML = [XML] @"
 "@
 
 $firstXML.AddressBook
+$firstXML.AddressBook.Person
+$firstXML.AddressBook.Person[0].ContactType
+$firstXML.AddressBook.Person[0].Phone
+$firstXML.AddressBook.Person[0].Phone[1]
+
+#endregion
+
+#region Simple Operators
+# Arithmetic Operators
+[Math]::Pi
+[Math]::E
+[Math]::Max([Math]::E, [Math]::PI)
+[Math]::Pow(-1, 1024)
 
 #endregion
