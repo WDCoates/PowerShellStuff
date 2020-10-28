@@ -391,6 +391,34 @@ $hello = "Hello" -as [int32]
 $null -eq $hello
 $null.Length -eq $hello.Length
 
-$Host
+# -split  based on whitespace (\s+) and trims
+-split "This is a sentence of x words   "
+"1,2:3,4:5,10:,:12,123" -split "[,:]",  6
+"1a2B3c4D5EE6" -split "[a-z]+", 0, "IgnoreCase"
+
+# -join Combines items into single string
+-join ("1234", 5678, "9ABCD")
+("1234", 5678, "9ABCD") -join "-"   # With Delimiter
+
+# Comparison Operators
+# -eq -ne -ge -gt -le -lt -in -notin -like -notlike -match -notmatch -contains -notcontains -is -isnot
+$list = 1,2,3,4,5,6,7
+6 -in $list    #True
+9 -in $list    #False
+ 
+"Development" -like "[A-Z]e?[tr]" #False
+"Development" -like "[Dev|Te]*" #True
+"Test" -like "[Dev|Te]*" #True
+"Production" -like "[Dev|Te]*" #False
+
+"Hello World" -match "(.*) (.*)"    #True
+$Matches
+$Matches[2] -eq "World" #True
+
+$list -contains 6 #True
+$list -contains 9 #False
+
+$list.GetType()
+$list -is [System.Array]
 
 #Endregion
