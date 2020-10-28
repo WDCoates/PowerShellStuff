@@ -32,7 +32,7 @@ Get-Help about_Comment_Based_Help
 
 
 <# Commands and Expressions #>
-#region Commands and Expressions
+#Region Commands and Expressions
 
 # Precedence Control: ()
 5 * 1 + 2
@@ -70,9 +70,9 @@ $D2 = DATA { 1 , 1 }
 $D1
 $D2
 
-#endregion
+#Endregion
 
-#region Variables
+#Region Variables
 
 #Simple Variable
 $ABC = "Variable names are not case-sensitive! But adding case does helps the spell checker"
@@ -92,7 +92,7 @@ ${D:\Log.txt} += "`nCan We add to? Yes we can just not sure how to get new lines
 $log = ${D:\Log.txt}
 $log
 
-#endregion
+#Endregion
 
 # New Line and carriage returns
 $newLine = "1.This is line one.`n2.And this is line two?`r3.LineThree!!!"
@@ -196,24 +196,31 @@ Then again I just can't be bothered...
 
 Write-Host $multiLines
 
-#region Numbers
+#Region Numbers
 $myInt = 1001
+$myInt.GetTypeCode()
 $myDouble = 123.4567
-
+$myDouble.GetTypeCode()
 $myShort = [int16] 9999 #with a cast...
-
+$myShort.GetTypeCode()
 $myLong = 2147483648L   #using the L long D decimal suffixes
+$myLong.GetTypeCode()
 $myDec = 0.123456789D
-
+$myDec.GetTypeCode()
 $pi = 3141592653e-9     #scientific notation
+$pi.GetTypeCode()
 
 $psConstants = (1GB + 250mb) / 120kb / 60
+$psConstants
 1GB -eq 1gb #=> True
 
 # Hexadecimal and Other Number Bases
 $myHexNo = 0xFFe1
+$myHexNo
 $myBinary = [Convert]::ToInt32("101101010101", 2)
+$myBinary
 $myHexString = [Convert]::ToString(65098, 16)
+$myHexString
 
 # Large Numbers
 [BigInt]::Pow(123456, 123)
@@ -226,9 +233,9 @@ $myHexString = [Convert]::ToString(65098, 16)
 #Magnitude : 1
 #Phase : 3.14159265358979
 
-#endregion
+#Endregion
 
-#region Arrays amd Lists
+#Region Arrays amd Lists
 $emptyArray = @()
 
 $mixedArray = 0, "A", 2, "B", 4, "C", 6, "D"
@@ -306,9 +313,9 @@ $insertOrder
 $insertOrder["Knee"]
 $insertOrder.Knee
 
-#endregion
+#Endregion
 
-#region XML
+#Region XML
 
 $firstXML = [XML] @"
 <AddressBook>
@@ -330,13 +337,60 @@ $firstXML.AddressBook.Person[0].ContactType
 $firstXML.AddressBook.Person[0].Phone
 $firstXML.AddressBook.Person[0].Phone[1]
 
-#endregion
+#Endregion
 
-#region Simple Operators
+#Region Simple Operators
 # Arithmetic Operators
 [Math]::Pi
 [Math]::E
 [Math]::Max([Math]::E, [Math]::PI)
 [Math]::Pow(-1, 1024)
 
-#endregion
+# + works with numbers, strings, arrays and hashtables (op_Addition)
+# - works with numbers (op_Subtraction)
+# * works with numbers, strings and arrays  ((op_Multiply)
+">" * 100
+$mArray = (1..3 * 10)
+$mArray.Count           # A count of 30
+# / works with numbers (op_Division)
+# % modulus returns the remainder, works with numbers (op_Modulus)
+
+# all work with short form $r operator= value e.g. $res += 10
+
+# Logical Operators
+# -and, -or, -xor, -not !,  
+
+# Binary Operators work Bit by Bit
+# -band Binary AND, -bor, -bxor, -bnot, -shl, -shr
+$b1 = "100011001"   #This is a string not a number beware
+$b2 = "100000001"
+$int1 = [Convert]::ToInt32($b1, 2)
+$int2 = [Convert]::ToInt32($b2, 2)
+[Convert]::ToString($int1 -band $int2, 2)
+
+$int101 = 101
+[Convert]::ToString($int101, 2)
+$shl04 = $int101 -shl 4
+[Convert]::ToString($shl04, 2)
+
+# Other Operators
+# -replace, -ireplace case-insensitive -creplace case-sensitive
+("Well Hello world" -replace "(e)",'3') -creplace "W", 'UU' 
+"Hello World" -ireplace "(.*) (.*)",'$2 $1'
+
+# -f format operator see .NET String.Format
+"{0:n0}" -f 1000000.00
+"{0:c2}" -f 1000.1234
+"{0,6:d} {1,10}" -f [DateTime]::Now, 10
+"{0,6:d} {1,10:t}" -f [DateTime]::Now, [DateTime]::Now
+
+# -as type conversion
+(3/2) -eq (3/2 -as [int])
+
+$hello = "Hello" -as [int32]
+$null -eq $hello
+$null.Length -eq $hello.Length
+
+$Host
+
+#Endregion
