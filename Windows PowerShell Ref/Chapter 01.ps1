@@ -403,7 +403,7 @@ $null.Length -eq $hello.Length
 #EndRegion
 
 #Region Comparison Operators
-# -eq -ne -ge -gt -le -lt -in -notin -like -notlike -match -notmatch -contains -notcontains -is -isnot
+# -eq -ne -ge -gt -le -lt -in -notin -like -notlike -match -notmatch -contains -notcontains -is -isnot; can also add c or i after - for Case-Sensitive or Ignore Case e.g. -ceq
 $list = 1,2,3,4,5,6,7
 6 -in $list    #True
 9 -in $list    #False
@@ -426,5 +426,42 @@ $list -is [System.Array]
 #EndRegion
 
 #Region Conditional Statements
+# if, elseif and else. {} always required
+$answer = Read-Host -Prompt "Red or White"
+$answer
+if ($answer -ceq "Red" -or $answer -ceq "red") {
+    Write-Host "You want Red."
+} elseif  ($answer -eq "white") {
+    Write-Host "You want White"
+} else {
+    Write-Host "You want Pink!"
+}
 
+
+#switch has options for -c -e -r -w -casesensitive -exact -regex -wildcard; break and continue are also allowed
+$answer = Read-Host -Prompt "Red or White"
+$answer
+
+switch -c ($answer) {
+    "Red" {
+        Write-Host "You want Red."
+        break
+    }
+    "White" {
+        Write-Host "You want White."
+        $sure = Read-Host -Prompt "Yes/No"
+        if ($sure -eq "No"){
+            continue}
+        $_.Length
+    }
+    {$_.Length -gt 3} {
+        Write-Host "You Sure want White."
+    }
+    default {
+        Write-Host "None selected check your case."
+    }
+}
+#EndRegion
+
+#Region 
 #EndRegion

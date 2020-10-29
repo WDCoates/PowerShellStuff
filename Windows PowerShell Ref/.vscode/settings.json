@@ -1,8 +1,10 @@
 {
     "cSpell.words": [
+        "casesensitive",
         "creplace",
         "hashtables",
         "ireplace",
-        "subparse"
+        "subparse",
+        "wildcard"
     ]
 }
