@@ -70,7 +70,7 @@ $D2 = DATA { 1 , 1 }
 $D1
 $D2
 
-#Endregion
+#EndRegion
 
 #Region Variables
 
@@ -92,7 +92,7 @@ ${D:\Log.txt} += "`nCan We add to? Yes we can just not sure how to get new lines
 $log = ${D:\Log.txt}
 $log
 
-#Endregion
+#EndRegion
 
 # New Line and carriage returns
 $newLine = "1.This is line one.`n2.And this is line two?`r3.LineThree!!!"
@@ -233,7 +233,7 @@ $myHexString
 #Magnitude : 1
 #Phase : 3.14159265358979
 
-#Endregion
+#EndRegion
 
 #Region Arrays amd Lists
 $emptyArray = @()
@@ -313,7 +313,7 @@ $insertOrder
 $insertOrder["Knee"]
 $insertOrder.Knee
 
-#Endregion
+#EndRegion
 
 #Region XML
 
@@ -337,7 +337,7 @@ $firstXML.AddressBook.Person[0].ContactType
 $firstXML.AddressBook.Person[0].Phone
 $firstXML.AddressBook.Person[0].Phone[1]
 
-#Endregion
+#EndRegion
 
 #Region Simple Operators
 # Arithmetic Operators
@@ -400,7 +400,9 @@ $null.Length -eq $hello.Length
 -join ("1234", 5678, "9ABCD")
 ("1234", 5678, "9ABCD") -join "-"   # With Delimiter
 
-# Comparison Operators
+#EndRegion
+
+#Region Comparison Operators
 # -eq -ne -ge -gt -le -lt -in -notin -like -notlike -match -notmatch -contains -notcontains -is -isnot
 $list = 1,2,3,4,5,6,7
 6 -in $list    #True
@@ -421,4 +423,8 @@ $list -contains 9 #False
 $list.GetType()
 $list -is [System.Array]
 
-#Endregion
+#EndRegion
+
+#Region Conditional Statements
+
+#EndRegion
