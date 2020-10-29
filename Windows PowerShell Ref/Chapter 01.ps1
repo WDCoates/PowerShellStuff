@@ -463,5 +463,83 @@ switch -c ($answer) {
 }
 #EndRegion
 
-#Region 
+#Region Looping Statements
+# for
+# :label for (init; condition; increment) {}
+:simple 
+for ($i = 0; $i -lt 10; $i++){
+    Write-Host "Loop count is: $i"
+}
+
+# foreach
+$aName = "Ann", "Bee", "Chrissie", "Dave"
+foreach($name in $aName){
+    Write-Host "Name: $name"
+}
+
+# while
+$com = "";
+while($com -notmatch "Y")
+{
+    $com = Read-Host "Quite Y/N?"
+}
+
+# do while / do until
+$com = "";
+do
+{
+    $com = Read-Host "Quite Y/N?"
+}
+while($com -notmatch "Y")
+
+$com = "";
+do
+{
+    $com = Read-Host "Quite Y/N?"
+}
+until($com -match "Y")
+
+# break or break loop_label
+
+for ($counter = 0; $counter -lt 4; $counter++) {
+    for ($counter2 = 0; $counter2 -lt 4; $counter2++) {
+        if ($counter2 -eq 2) {
+            break
+        }
+        Write-Host "Processing item $counter,$counter2"
+    }
+}
+
+:outer_loop 
+for ($counter = 0; $counter -lt 4; $counter++) {
+    for ($counter2 = 0; $counter2 -lt 4; $counter2++) {
+        if ($counter2 -eq 2) {
+            break outer_loop
+        }
+        Write-Host "Processing item $counter,$counter2"
+    }
+}
+
+# continue skips execution of the rest of the current block
+for ($counter = 0; $counter -lt 4; $counter++) {
+    for ($counter2 = 0; $counter2 -lt 4; $counter2++) {
+        if ($counter2 -eq 2) {
+            continue
+        }
+        Write-Host "Processing item $counter,$counter2"
+    }
+}
+
+:outer_loop 
+for ($counter = 0; $counter -lt 4; $counter++) {
+    for ($counter2 = 0; $counter2 -lt 4; $counter2++) {
+        if ($counter2 -eq 2) {
+            continue outer_loop
+        }
+        Write-Host "Processing item $counter,$counter2"
+    }
+}
+
+# :labels can be anywhere in the code so beware!
+
 #EndRegion

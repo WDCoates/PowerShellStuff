@@ -4,6 +4,7 @@
         "creplace",
         "hashtables",
         "ireplace",
+        "notmatch",
         "subparse",
         "wildcard"
     ]
