@@ -4,6 +4,10 @@
         "creplace",
         "hashtables",
         "ireplace",
+        "isnot",
+        "notcontains",
+        "notin",
+        "notlike",
         "notmatch",
         "subparse",
         "wildcard"
