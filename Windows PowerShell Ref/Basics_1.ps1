@@ -49,6 +49,9 @@ $NewDate
 $DateDiff = $NewDate - [DateTime]::Now
 $DateDiff
 
+Get-Date -Format "dddd MM/dd/yyyy HH:mm K"
+Get-Date -Format "yyyy/MM/dd"
+
 #Composable Commands
 #CommandA | CommandB
 
@@ -60,6 +63,16 @@ D:
 Set-Location D:\Downloads
 Get-Item *.* | Copy-Item -Destination D:\Temp\ -Confirm -WhatIf
 Get-ChildItem D:\Temp\*.* -Recurse
+
+# More refined search using the Where-Object {}
+$ErrorActionPreference="Stop"
+Set-Location C:\Temp
+$fDate = [DateTime]::Today.AddDays(-3)
+$fDate
+
+Get-ChildItem | 
+    Where-Object { $_.LastWriteTime -lt $fDate } | 
+        Remove-Item -WhatIf
 
 #Common Discovery Commands
 Get-Command -CommandType Alias

@@ -598,16 +598,18 @@ FirstSequence_WF
 # foreach -parallel
 
 workflow FirstForEach_WF{
-    $items = @{1=0;2=0;3=0;4=0;5=0;6=0;7=0;8=0;9=0;10=0;11=0;12=0;}
+    $items = @{1="1";2="2";3="3";4="4";5="5";6="6";7="7";8="8";9="9";10="A";11="B";12="C";}
     
-    foreach -parallel ($item in $items){
+    ForEach -parallel ($k in $items){
         $sleep = Get-Random -Max 10
         Start-Sleep -seconds $sleep
-        $item
+
+        Write-Progress $_.
     }
+
 }
 
-FirstForeEach_WF
+FirstForEach_WF
 
 # TODO:Work out how to update the values in a parallel foreach...
 
