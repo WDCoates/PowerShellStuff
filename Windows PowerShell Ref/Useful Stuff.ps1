@@ -10,7 +10,9 @@ $PSVersionTable
 
 [System.Reflection.Assembly]::GetExecutingAssembly().ImageRuntimeVersion
 
-([AppDomain]::CurrentDomain.GetAssemblies() | ? { $_.GetName().Name -eq "mscorlib" }).GetName().Version
+([AppDomain]::CurrentDomain.GetAssemblies() | Where-Object { $_.GetName().Name -eq "mscorlib" }).GetName().Version
+#Note '?' is an Alias for Where-Object 
+#([AppDomain]::CurrentDomain.GetAssemblies() | ? { $_.GetName().Name -eq "mscorlib" }).GetName().Version
 
 [Runtime.InteropServices.RuntimeEnvironment]::GetRuntimeDirectory()
 
