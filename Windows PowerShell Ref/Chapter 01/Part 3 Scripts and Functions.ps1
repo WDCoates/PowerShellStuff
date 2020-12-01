@@ -110,4 +110,45 @@ $PSDefaultParameterValues["Get-Service:Name"] = { Get-Service -Name * | ForEach-
 Get-Service
 
 # Providing Input to Commands
-# 1. Argument Array
+# 1. Argument Array using $args[n]
+# 2. Formal parameters
+#    param( [TypeName] $VariableName = Default,...)
+# or
+<#   [CmdletBinding(cmdlet behavior customizations)]
+    param(
+        [Parameter(Mandatory = $true, Position = 1, ...)]
+        [Alias("MyParameterAlias"]
+        [...]
+        [TypeName] $VariableName = Default,
+        ...
+    )
+#>
+
+# Command name no spaces
+$cur = Get-Location 
+if ($cur.Path -notlike "*Chapter 01") {
+    Set-Location "D:\Development\PowerShellStuff\Windows PowerShell Ref\Chapter 01"
+}
+
+.\Simple.ps1 -p Param1 A1
+.\Simple.ps1 A1 A2
+
+# Command behavior customisations [CmdletBinding()]
+# 1. SupportsShouldProcess = $true
+# 2. DefaultParameterSetName = name
+# 3. ConfirmImpact = "Low" "Medium" "High"
+
+# Parameter attribute customizations [Parameter()]
+# 1. Mandatory = $true
+# 2. Position = n
+# 3. ParameterSetName = name
+# 4. ValueFromPipeline = $true
+# 5. ValueFromPipelineByPropertyName = $true
+# 6. ValueFromRemainingArguments = $true
+
+# Parameter validation attributes 
+# 1. [Alias(" name ")]
+# 2. [AllowNull()] - required only for mandatory parameters
+# 3. [AllowEmptyString()]
+# 4. 
+
