@@ -133,7 +133,7 @@ if ($cur.Path -notlike "*Chapter 01") {
 .\Simple.ps1 -p Param1 A1
 .\Simple.ps1 A1 A2
 
-# Command behavior customisations [CmdletBinding()]
+# Command behaviour customisations [CmdletBinding()]
 # 1. SupportsShouldProcess = $true
 # 2. DefaultParameterSetName = name
 # 3. ConfirmImpact = "Low" "Medium" "High"
@@ -150,5 +150,97 @@ if ($cur.Path -notlike "*Chapter 01") {
 # 1. [Alias(" name ")]
 # 2. [AllowNull()] - required only for mandatory parameters
 # 3. [AllowEmptyString()]
-# 4. 
+# 4. [AllowEmptyCollection()]
+# 5. [ValidateCount(lower limit, upper limit)]
+# 6. [ValidateLength(lower limit, upper limit)]
+# 7. [ValidatePattern("regular expression ")]
+# .....
+# 11 [ValidateNotNull()]
+# 12 [ValidateNotNullOrEmpty()]
+
+
+# Pipeline Access to data through the input enumerator
+
+foreach($e in $input) {
+    "Input was: $e"
+}
+
+Set-Location "D:\Development\PowerShellStuff\Windows PowerShell Ref\"
+$names = "Adam", "Bill", "Cat", "Dick"
+$names | .\'Chapter 01'\PipelinePro.ps1
+$names | .\'Chapter 01'\PipelineBPE.ps1
+
+# Retrieving Output from Commands can also use the return command
+$names | .\'Chapter 01'\PipelinePro.ps1 | .\'Chapter 01'\PipelineBPE.ps1
+
+# Exit Statement
+function exitTest([int] $strTest){
+    Write-Host 'This first then...'
+    if ($strTest -gt 1){
+        exit $strTest
+    }
+    Write-Host 'Then this.'
+}
+exitTest 0;
+$LastExitCode
+$?
+exitTest 1111;
+$LastExitCode
+$?
+
+
+Get-Help about_automatic_variables
+$$
+
+
+# Functions with two parama
+function twoParams {
+    param($1, $2)
+    begin{
+        Write-Host $1, $2        
+        $ret = @($1, $2)
+    } 
+    process{
+        Write-Host $_ # for pipelining......
+    }
+    end{
+
+        return $ret
+    }
+}
+
+twoParams "ParOne" "ParTwo" | twoParams
+
+# Managing Errors
+# 1. nonterminating
+#       PowerShell writes error to error output stream
+Write-Error 
+# or 
+WriteError() API # when writing a cmdlet
+
+# $ErrorActionPreference
+# Ignore, Silently Continue, Stop, Continuie (default), Inquire
+function eTest ([int] $a){
+
+    switch  ($a)  {
+        1 {
+            $ErrorActionPreference = "Ignore"
+            #doSomeThinf -ErrorAction Ignore
+            break
+        }
+        2 {
+            $ErrorActionPreference = "Silently Continue"
+            break         
+        }        
+    }
+
+    Write-Host $ErrorActionPreference
+
+}
+
+eTest(1)
+eTest(2)
+
+# 2. terminating
+
 
