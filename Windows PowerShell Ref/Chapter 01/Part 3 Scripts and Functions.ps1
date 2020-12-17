@@ -231,16 +231,71 @@ function eTest ([int] $a){
         2 {
             $ErrorActionPreference = "Silently Continue"
             break         
-        }        
+        }     
+        10 {
+            throw "Error: 10010"
+            break
+        }   
+        0 {
+            $r0 = 1/0
+            break
+        }   
     }
 
     Write-Host $ErrorActionPreference
-
+    Write-Host $r0
 }
 
 eTest(1)
 eTest(2)
 
-# 2. terminating
+# 2. terminating with the throw message
+
+eTest (10)
 
 
+try
+{
+    eTest 0
+}
+catch [DivideByZeroException]
+{
+    Write-Host "Catch Top 1"
+    $_
+    Write-Host "Simple Error Caught so can continue!"
+    $PSItem.Exception
+    $PSItem.Exception.StackTrace
+    Write-Host "Show Script Stack Trace"
+    $PSItem.ScriptStackTrace
+    Write-Host "Catch Bottom 1"
+}
+catch [System.IO.IOException]{
+    Write-Host "Catch Top 2"
+    $_
+    Write-Host "Simple Error Caught so can continue!"
+    $PSItem.Exception
+    $PSItem.Exception.StackTrace
+    Write-Host "Show Script Stack Trace"
+    $PSItem.ScriptStackTrace
+    Write-Host "Catch Bottom 2"
+}
+
+
+try
+{
+    eTest 0
+}
+catch [System.DivideByZeroException]
+{
+    Write-EventLog -LogName "Windows" -Source "Powershell" -EventId 10010 -Message "Divide By Zero Caught by me!"
+}
+
+# also with Powershell you can define trap
+etest 0
+
+trap {
+
+    eTest 0    
+    $PSItem.ToString()
+    $PSItem.InvocationInfo | Format-List *
+}
