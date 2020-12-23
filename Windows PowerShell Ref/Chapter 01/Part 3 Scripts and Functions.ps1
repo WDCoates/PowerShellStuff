@@ -216,7 +216,7 @@ twoParams "ParOne" "ParTwo" | twoParams
 #       PowerShell writes error to error output stream
 Write-Error 
 # or 
-WriteError() API # when writing a cmdlet
+# WriteError() API # when writing a cmdlet
 
 # $ErrorActionPreference
 # Ignore, Silently Continue, Stop, Continuie (default), Inquire
@@ -293,9 +293,20 @@ catch [System.DivideByZeroException]
 # also with Powershell you can define trap
 etest 0
 
-trap {
+function eTrap {
 
-    eTest 0    
-    $PSItem.ToString()
-    $PSItem.InvocationInfo | Format-List *
+    eTest 0
+
+    trap [System.DivideByZeroException]
+    {
+        eTest 0    
+        # Keywords allowed 'continue' and 'break' break is default
+        # continue # Not sure but this does not do what I think it says it should!
+        write-host "Did we get here 0"
+    }
+
+    write-host "Did we get here 1"
 }
+
+
+eTrap
