@@ -1,6 +1,6 @@
 # customization and personalization
 
-$profile | Format-List -Force
+$profile | Format-List -Force   #Shows where profile files are.
 
 # Create a new profile file
 New-Item -Type file -Force $profile
