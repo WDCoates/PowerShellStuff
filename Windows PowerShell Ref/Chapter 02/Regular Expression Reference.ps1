@@ -88,3 +88,42 @@
 # Grouping constructs
 "Hello Wollo" -match '^(.*)llo$'; $matches
 
+# Capture and name
+"Hello" -match '^(?<H1>.*)llo$'; $matches.H1
+
+# (?:) Non-capturing group
+"A2" -match '((A|B)\d)'; $matches
+"A1" -match '(?:(A|B)\d)'; $matches
+"A1" -match '((?:A|B)\d)'; $matches
+
+
+
+# (?imnsx-imnsx:) i case-insensitive, m multi-line, n explicit capture, s single-line, x ignore whitespace
+
+"Te`nst" -match '(T e.st)' # False
+"Te`nst" -match '(?sx:T e.st)'; $Matches # True
+
+# (?=) Zero-width positive lookahead assertion.
+"4321-567890" -match '(?=...-)(.*)'; $matches[1]    # True 321-567890
+
+# (?!) Zero-width negative lookahead assertion.
+"Friend is Friend" -match 'Friend';             $matches    # True
+"Friend is Friend" -match '(?!.*is.*)Friend.*'; $matches    # True 
+"Friendly" -match '(?!Friendly)Friend.*';       $matches    # False
+
+
+# (?<=) Zero-width positive lookbehind assertion.
+"public int X" -match '^.*(?<=public )int .*$'; $Matches # True
+
+# (?<!) Zero-width negative lookbehind assertion.
+"public int X" -match '^.*(?<!public )int .*$'; $Matches # False
+"private int X" -match '^.*(?<!public )int .*$'; $Matches # True 
+
+# (?>) Non-backtracking subexpression. Matches only if this subexpression can be matched completely.
+
+"Hello World" -match '(Hello.*)orld'; $Matches  # True two matches
+"Hello World" -match '(?>Hello.*)orld'; $Matches # False
+"This is Hello World my friend" -match '(Hell.*)World'; $Matches # True
+"This is Hello World my friend" -match 'Hell.*'; $Matches # True Hello World my friend
+"This is Hello World my friend" -match '(?>Hell.*).*World'; $Matches # False
+
