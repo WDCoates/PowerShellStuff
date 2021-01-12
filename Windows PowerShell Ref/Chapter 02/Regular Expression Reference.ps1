@@ -127,3 +127,30 @@
 "This is Hello World my friend" -match 'Hell.*'; $Matches # True Hello World my friend
 "This is Hello World my friend" -match '(?>Hell.*).*World'; $Matches # False
 
+# Atomic zero-width assertions or restrict where patterns must occur
+
+# ^ Beginning or string/line
+# $ End of string/line
+
+# \A Beginning or string.
+"The`nTest" -match '(?m:^Test)' # True  `n new line...
+"The`nTest" -match '(?m:\ATest)' # False
+
+# \Z End of String or before \n
+"One`nTwo`nThree`n" -match '(?m:Two$)' #True
+"One`nTwo`nThree`n" -match '(?m:Two\Z)' #False
+"One`nTwo`nThree`n" -match 'Three\Z' #True
+
+# \z End of string
+ "One`nTwo`nThree`n" -match 'Three\z' #False
+
+# \b must occur on a word boundary
+"Testing123" -match '123\b' # True
+"123Testing456" -match '\b123' # True
+
+# \B Must Not occur on a word boundary
+"Testing123456" -match '123\B' # True
+"123Testing456" -match '\B123' # False
+
+
+# \G Match must occur where previous match ended. Used with Match.NextMatch()
