@@ -1,6 +1,6 @@
 # underpin -split & -match operators, the switch statement and Select-String command
 
-# . Any character exceot newline match single character at a time
+# . Any character except newline match single character at a time
 
 "ZYX." -match '.'   # 4 Matches....
 
@@ -32,7 +32,7 @@
 # \W Any NONE word charater
 "!?." -match '\W'   # True
 
-# \s Any WhiteSpace charater & \S None WhiteSpace...
+# \s Any WhiteSpace character & \S None WhiteSpace...
 "`t" -match '\s'    # True this is the Tab Char
 "`t" -match '\S'    # False this is the Tab Char
 
@@ -41,4 +41,50 @@
 "1"   -match '\D'     # False
 "M4N" -match '.\D.'     # False
 
+# ^ Match at beginning
+# $ Match at the end
+
 # Quantifiers....
+# Matching as much as possible...
+# * 0 or More
+# + 1 or more
+# ? 0 or 1
+"XXX"  -match 'X+';      $Matches #True
+"TTT" -match '^T.*$';    $Matches #True 
+"TTTA" -match 'T.*$';    $Matches #True 
+"TATTT" -match '^TA*$';  $Matches #False 
+"TA"    -match '^TA$';   $Matches #True
+"TATTA" -match '^TA.*$'; $Matches #True
+
+'TTATT' -match 'T'; $Matches.Count
+'TTTT' -match '^T+$'
+
+# {n} Exactly n matches
+"TTTT" -match '^T{4}$'; $Matches   #True
+"TTTT" -match '^T{2}$'; $Matches   #False
+"TTTT" -match '^T{2}';  $Matches   #True
+
+# {n, } n or more 
+"TTTT" -match '^T{2,}$';  $Matches   #True
+"TTTT" -match '^T{2,}';   $Matches   #True
+
+# {n,m} Between n and m matches
+"TTTT" -match '^TT{3,10}';   $Matches   #True
+"TTTT" -match '^TT{4,10}';   $Matches   #False
+
+# All matching to this point are matching as much as possible..
+# ? makes it matching as little as possible...
+
+# *? 0 or more
+"A" -match '^AT*?$'; $Matches           #True Matches the A but doesn't need to match the T
+'ATTATT' -match 'AT*?'; $Matches.Count  #True but only one match!
+
+# +? 1 or more
+"A" -match '^AT+?$'; $Matches           #False
+'ATTATT' -match '^AT+?'; $Matches.Count  #True but only one match!
+
+# ??, {n}?, {n,m}?...
+
+# Grouping constructs
+"Hello Wollo" -match '^(.*)llo$'; $matches
+
