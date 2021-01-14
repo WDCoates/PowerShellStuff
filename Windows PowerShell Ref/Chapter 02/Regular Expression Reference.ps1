@@ -154,3 +154,10 @@
 
 
 # \G Match must occur where previous match ended. Used with Match.NextMatch()
+
+# Substitution patterns: -replace
+# $n / ${name}
+"Test" -match "(.*)st"; $Matches   # True Te
+
+"Test" -replace "(.*)st", '$1ar' # Tear
+"Test" -replace "Te(?<mid>.*)", 'Be${mid}ar' # Bestar
