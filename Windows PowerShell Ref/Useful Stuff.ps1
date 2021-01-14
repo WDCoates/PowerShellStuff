@@ -71,4 +71,7 @@ $obj | Sort-Object Name | Out-GridView
 [Web.HttpUtility]::UrlEncode("http://www.bing.com")
 
 # You will need to install RSAT (Remote Server Admin Tools)
-Get-ADGroupMember 
+Get-ADGroupMember Out-GridView
+
+# Net Commands
+net user /domain wd_coates
