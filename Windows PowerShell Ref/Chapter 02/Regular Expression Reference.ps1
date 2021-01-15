@@ -156,8 +156,31 @@
 # \G Match must occur where previous match ended. Used with Match.NextMatch()
 
 # Substitution patterns: -replace
+"Test" -replace "e", '!' # T!st
+
 # $n / ${name}
 "Test" -match "(.*)st"; $Matches   # True Te
 
 "Test" -replace "(.*)st", '$1ar' # Tear
 "Test" -replace "Te(?<mid>.*)", 'Be${mid}ar' # Bestar
+
+# $$ 
+"Test" -replace ".", '$$' # $$$$
+
+# $& copy match
+"Test" -replace "^.*$",'Found: $&' # Found: Test
+"Test" -replace "es", '>$&<' # T>es<t
+
+# $` Text that precedes the match.
+"Test" -replace "est$", 'Te$`' # TTeT
+"Test" -replace "est$", '$`' # TT
+
+# $' Text that follows the match.
+"Test" -replace "^Tes", "Res$'" # Rest
+"Test" -replace "^Tes", "$'" # tt
+
+
+# $+ Last Group
+"Testing One Two Three" -match "(.*)ing" # True Testing ¦ Test
+"Testing One Two Three" -replace "(.*)ing", '$+ed' # Tested One Two Three
+
