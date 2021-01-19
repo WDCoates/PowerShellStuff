@@ -184,3 +184,7 @@
 "Testing One Two Three" -match "(.*)ing" # True Testing ¦ Test
 "Testing One Two Three" -replace "(.*)ing", '$+ed' # Tested One Two Three
 
+# $_ Entire input string
+"Testing 123" -replace "(.*)ing", 'String: $_' # String: Testing 123 123
+
+
