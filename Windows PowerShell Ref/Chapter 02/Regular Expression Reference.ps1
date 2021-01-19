@@ -187,4 +187,7 @@
 # $_ Entire input string
 "Testing 123" -replace "(.*)ing", 'String: $_' # String: Testing 123 123
 
-
+# Alternation constructs - either/or logic
+# |
+"Test Best" -match '(B|T)est'; $Matches # Test, T
+"The Best" -match '(B|T)est'; $Matches # Best, B
