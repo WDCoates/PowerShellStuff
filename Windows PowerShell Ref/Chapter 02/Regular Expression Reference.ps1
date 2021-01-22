@@ -191,3 +191,14 @@
 # |
 "Test Best" -match '(B|T)est'; $Matches # Test, T
 "The Best" -match '(B|T)est'; $Matches # Best, B
+
+# (?(expression)yes|no) # It isimportant to not leave a space after the )
+"3.14" -match '(?(\d)3.14|Pi)'; $Matches # true
+"3.10" -match '(?(\d)3.14|Pi)'; $Matches # false
+"Pi" -match   '(?(\d)3.14|Pi)'; $Matches # true
+
+# (?(name)yes|no)
+
+"ABC" -match '(?<First>A)'; $Matches # [1][First]   A
+"ABC" -match '(?<First>A)?(?(First)BC|DEF)'; $Matches #True
+

@@ -75,3 +75,9 @@ Get-ADGroupMember Out-GridView
 
 # Net Commands
 net user /domain wd_coates
+
+# Computer Management / System Tools / Shared Folders / Open Files
+# Not Sure  this shoes anything!
+
+$lockedFile="D:\Program Files\Microsoft VS Code\Code.exe"
+Get-Process | foreach{$processVar = $_;$_.Modules | foreach{if($_.FileName -eq $lockedFile){$processVar.Name + " PID:" + $processVar.id}}}
