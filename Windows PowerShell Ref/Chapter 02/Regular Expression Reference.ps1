@@ -210,6 +210,42 @@
 "0Test0" -match '(?<A>\d)Test\k<A>'; $Matches
 
 
+# Other constructs...
 
+# (?imsxn-imsxn) Applies or disables options
 
+# i insensitive to case; m multiline; s singleline; x ignore whitespace; n explicit capture
+"white space" -match '(?i)WHITE (?-i)space' # True
+"white space" -match '(?i)WHITE (?-i)SPACE' # False
+
+# (?# ) Inline comment
+"Test" -match '(?# Match "Test")Test' # True
+
+#[end of line] when ignore whitespace is on...
+"Test" -match '(?xi)test # Matches on Test or test'
+
+# Character escapes....
+# <ordinary characters> other than . $ ^ { [ ( | ) * + ? \ match themselves
+
+# \a Bell \u0007
+# \b backspace \u0008
+
+# \t tab \u0009
+# \v vt \u000B
+
+# \n nl \u000A
+# \r cr \u000D
+# \f ff \u000C
+
+# \e escape \u001B
+
+# \ddd An ASCII character
+
+# \xdd An ASCII char using hex
+
+# \cC  An ASCII control char like \cC for Control-C
+
+# \udddd An Unicode using hex
+
+# \      Followed by char not an escaped char e.g. \* for the *
 
