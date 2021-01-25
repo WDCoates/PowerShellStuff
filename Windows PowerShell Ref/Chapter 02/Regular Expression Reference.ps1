@@ -202,3 +202,14 @@
 "ABC" -match '(?<First>A)'; $Matches # [1][First]   A
 "ABC" -match '(?<First>A)?(?(First)BC|DEF)'; $Matches #True
 
+# Backreference constructs
+# \number
+"0Test0" -match '(\d)Test\1'; $Matches
+
+# \k<name> useful if lots of groupings...
+"0Test0" -match '(?<A>\d)Test\k<A>'; $Matches
+
+
+
+
+
