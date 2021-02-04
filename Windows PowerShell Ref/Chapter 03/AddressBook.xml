@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AddressBook>
+    <Person contactType="Personal">
+        <Name>Lee</Name>
+        <Phone type="home">555-1212</Phone>
+        <Phone type="work">555-1213</Phone>
+    </Person>
+    <Person contactType="Business">
+        <Name>Ariel</Name>
+        <Phone>555-1234</Phone>
+    </Person>
+</AddressBook>
