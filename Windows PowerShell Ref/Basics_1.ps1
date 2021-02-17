@@ -166,3 +166,7 @@ Set-Location $WinDir
 #Note PowerShell rounds 
 (3/2)       #=> 1.5
 [int](3/2)  #=> 2
+
+
+Get-Process -Name w3wp
+New-TimeSpan (Get-Process -Id 9788).StartTime
