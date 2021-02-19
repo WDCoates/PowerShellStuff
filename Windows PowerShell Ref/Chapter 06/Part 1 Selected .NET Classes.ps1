@@ -29,6 +29,7 @@ for($x = 1; $x -le 10; $x++){
 }
 
 # System.Diagnostics.EventLog
+Get-EventLog -List
 $eLog = [System.Diagnostics.EventLog]::new()
 $eLog.MachineName
 
