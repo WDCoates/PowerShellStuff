@@ -11,5 +11,13 @@ $excel.visible = $true
 
 
 # Firewall access
-$fireWall = New-Object HNetCfg.FwMgr
+$fireWall = New-Object -ComObject HNetCfg.FwMgr
 $fireWall
+
+# Shell User!
+$user = New-Object -ComObject Shell.User
+
+# Windows Shell
+$v = New-Object -ComObject WScript.Shell
+$v.CurrentDirectory
+
