@@ -170,3 +170,24 @@ Set-Location $WinDir
 
 Get-Process -Name w3wp
 New-TimeSpan (Get-Process -Id 9788).StartTime
+
+
+# Define a class and then instanciate it and use it...
+class PName {
+    # Property
+    [Int] $count 
+    # Function
+    [Void] PHello([string] $Name){
+        Write-Host "Hello $Name"
+    }
+}
+
+# Instantiate an Object
+$obj = [PName]::new() 
+
+# Assign a count
+$obj.count = 10  
+Write-Host "Property Value is now: " $obj.count
+
+# Now Use the function
+$obj.PHello('Dave')

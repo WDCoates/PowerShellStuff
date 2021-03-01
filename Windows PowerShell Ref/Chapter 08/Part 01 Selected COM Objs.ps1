@@ -14,10 +14,20 @@ $excel.visible = $true
 $fireWall = New-Object -ComObject HNetCfg.FwMgr
 $fireWall
 
-# Shell User!
-$user = New-Object -ComObject Shell.User
+# Shell User This is not right yet!
+$Shell = New-Object -ComObject Shell    #Also tried Shell.User
+$Shell::User
 
+$shellUser = New-Object -ComObject [Shell]::User
+$shellUser
+
+
+Write-Host "Press any key to continue..."
+$key = [Console]::ReadKey('NoEcho')
+$key
+
+Write-Host "Press any key to continue..."
+$key = [Console]::ReadKey()
 # Windows Shell
 $v = New-Object -ComObject WScript.Shell
 $v.CurrentDirectory
-
