@@ -32,6 +32,8 @@ $Env:HOMEDRIVE
 
 $Env:HOMEPATH
 
+# All Environment values
+Get-ChildItem Env: | Format-Table -Wrap -AutoSize
 
 
 New-PSDrive -Name HKCR -PSProvider 'Microsoft.PowerShell.Core\Registry' -Root HKEY_CLASSES_ROOT
@@ -81,3 +83,13 @@ net user /domain wd_coates
 
 $lockedFile="D:\Program Files\Microsoft VS Code\Code.exe"
 Get-Process | foreach{$processVar = $_;$_.Modules | foreach{if($_.FileName -eq $lockedFile){$processVar.Name + " PID:" + $processVar.id}}}
+
+
+# Rename and using Substring
+Set-Location -Path D:\SQL_Backup\SegenResourceDB
+$backups = Get-ChildItem
+foreach ($item in $backups) {
+     $item   
+     $newName = $item.Name.SubString(0, 33)+".bak"
+    Rename-Item $item -NewName $newName
+}
