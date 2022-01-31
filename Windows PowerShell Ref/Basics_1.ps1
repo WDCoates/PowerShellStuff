@@ -191,3 +191,16 @@ Write-Host "Property Value is now: " $obj.count
 
 # Now Use the function
 $obj.PHello('Dave')
+
+
+# foreach with Child List
+Set-Location -Path C:\Windows\Temp
+$filter = "*1*.log"
+$files = Get-ChildItem -Filter $filter 
+$files.Count
+foreach ($file in $files) {
+    $file.Name
+    $newName = $file.Name.SubString(0, 10)+".bak"
+    $newName
+    Rename-Item $file -NewName $newName -WhatIf
+}
